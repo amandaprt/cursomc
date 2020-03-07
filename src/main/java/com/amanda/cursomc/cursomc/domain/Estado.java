@@ -1,8 +1,5 @@
 package com.amanda.cursomc.cursomc.domain;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
