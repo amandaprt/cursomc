@@ -1,13 +1,8 @@
 package com.amanda.cursomc.cursomc;
 
-import com.amanda.cursomc.cursomc.domain.Categoria;
-import com.amanda.cursomc.cursomc.domain.Cidade;
-import com.amanda.cursomc.cursomc.domain.Estado;
-import com.amanda.cursomc.cursomc.domain.Produto;
-import com.amanda.cursomc.cursomc.repository.CategoriaRepository;
-import com.amanda.cursomc.cursomc.repository.CidadeRepository;
-import com.amanda.cursomc.cursomc.repository.EstadoRepository;
-import com.amanda.cursomc.cursomc.repository.ProdutoRepository;
+import com.amanda.cursomc.cursomc.domain.*;
+import com.amanda.cursomc.cursomc.enums.TipoCliente;
+import com.amanda.cursomc.cursomc.repository.*;
 import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,6 +27,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
     CidadeRepository cidadeRepository;
+
+	@Autowired
+    ClienteRepository clienteRepository;
+
+	@Autowired
+    EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -63,15 +64,20 @@ public class CursomcApplication implements CommandLineRunner {
         sao_paulo.getCidade().addAll(Arrays.asList(campinas, saoPaulo));
         minas_gerais.getCidade().addAll(Arrays.asList(uberlandia));
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+        Cliente cliente = new Cliente(null, "Maria Silva", "maria@gmail.com", "123123", TipoCliente.PESSOAFISICA);
+        cliente.getTelefone().addAll(Arrays.asList("2323545", "123123"));
+        Endereco endereco1 = new Endereco(null, "rua tal", "899", "casa", "sadasd", "123230", cliente, campinas);
+        Endereco endereco2 = new Endereco(null, "rua tal", "899", "casa", "sadasd", "123230", cliente, saoPaulo);
+
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		estadoRepository.saveAll(Arrays.asList(sao_paulo, minas_gerais));
 		cidadeRepository.saveAll(Arrays.asList(campinas, saoPaulo, uberlandia));
+		clienteRepository.save(cliente);
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
 
 
-		List<Produto> listaProdutos =  Arrays.asList(p1, p2, p3);
 
-		System.out.println(listaProdutos);
 
 	}
 }

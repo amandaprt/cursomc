@@ -26,14 +26,12 @@ public class Cliente {
     @CollectionTable(name = "telefone")
     private Set<String> telefone = new HashSet<>();
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, List<Endereco> endereco, Set<String> telefone) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo.getCodigo();
-        this.endereco = endereco;
-        this.telefone = telefone;
     }
 
     public Integer getId() {
